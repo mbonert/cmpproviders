@@ -1,0 +1,15 @@
+Package: cmpproviders
+Version: 0.2
+Date: 2022-08-01
+Title: Compare Providers
+Authors@R: c(person("Michael Bonert", "Developer", role = c("aut", "cre"),
+                     email = "michael@librepathology.org"))
+Author: Michael Bonert Developer [aut, cre]
+Maintainer: Michael Bonert <michael@librepathology.org>
+Depends: R (>= 4.0.4), ggplot2, ggrepel, grid, lattice
+Suggests: COUNT, medpar, dplyr
+Description: A program that compares provider rate data using funnel plots. The implementation is based on Bonert et al. (2017) <https://doi.org/10.4103/jpi.jpi_50_17>
+License: GPL (>= 3)
+URL: https://www.r-project.org
+BugReports: michael@librepathology.org
+RoxygenNote: 7.1.1
