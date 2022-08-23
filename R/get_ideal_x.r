@@ -39,7 +39,7 @@
 #'
 #' @keywords internal
 #'
-#' @export calc_fpc
+#' @export get_ideal_x
 
 get_ideal_x <- function(x_lower_limit, x_upper_limit, y_lower_limit, y_upper_limit, limits, funnel_centre_line, fc_min_dx, fc_max_y_err) {
   # ---------------------------------------------------------------------------------------------------------

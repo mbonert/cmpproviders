@@ -2,6 +2,7 @@
 
 export(calc_fpc)
 export(funnel2cmpproviders)
+export(get_ideal_x)
 import(ggplot2)
 import(grid)
 import(gridExtra)
