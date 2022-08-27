@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 The provider is a known predictor of outcome in healthcare. In the quality improvement context: it is useful to understand the magnitude of differences and, more generally, the variability. 
 
 ### Funnel plots
-Funnel plots are useful to understand variability and magnitude.  Properly constructed, they can be understood by most practicing physicians/surgeons with modest effort. 
+Funnel plots are useful to understand variability and the magnitude of differences.  Properly constructed, they can be understood by most practicing physicians/surgeons with modest effort. 
 
 ### Example 1 (Length of Stay)
 ```{r, warning=FALSE, error=FALSE, message=FALSE, fig.height= 7, fig.width=7}
