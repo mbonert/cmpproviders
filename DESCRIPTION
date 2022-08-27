@@ -7,9 +7,15 @@ Authors@R: c(person("Michael Bonert", "Developer", role = c("aut", "cre"),
 Author: Michael Bonert Developer [aut, cre]
 Maintainer: Michael Bonert <michael@librepathology.org>
 Depends: R (>= 4.0.4), ggplot2, ggrepel, grid, lattice
-Suggests: COUNT, medpar, dplyr
+Suggests: 
+    COUNT,
+    medpar,
+    dplyr,
+    knitr,
+    rmarkdown
 Description: A program that compares provider rate data using funnel plots. The implementation is based on Bonert et al. (2017) <https://doi.org/10.4103/jpi.jpi_50_17>
 License: GPL (>= 3)
 URL: https://github.com/mbonert/cmpproviders
 BugReports: michael@librepathology.org
 RoxygenNote: 7.1.1
+VignetteBuilder: knitr
