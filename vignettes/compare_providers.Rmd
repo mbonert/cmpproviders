@@ -1,0 +1,119 @@
+---
+title: "Compare Providers using Funnel Plots"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Compare (Healthcare) Providers using Rate Data and Funnel Plots}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE, echo=FALSE, fig.height= 7, fig.width=7}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.height= 7, 
+  fig.width=7
+)
+```
+
+### The provider factor
+The provider is a known predictor of outcome in healthcare. In the quality improvement context: it is useful to understand the magnitude of differences and, more generally, the variability. 
+
+### Funnel plots
+Funnel plots are useful to understand variability and magnitude.  Properly constructed, they can be understood by most practicing physicians/surgeons with modest effort. 
+
+### Example 1 (Length of Stay)
+```{r, warning=FALSE, error=FALSE, message=FALSE, fig.height= 7, fig.width=7}
+library(cmpproviders)
+library(COUNT)
+library(dplyr)
+data(medpar)
+
+# Get number of patients by provider ...
+provider_count=as.data.frame(table(medpar$provnum))
+colnames(provider_count) = c('Provider', 'Count')
+provider_count
+
+# Purging providers with less than 25 patients ...
+requiredcases=25
+medpar_trunc <- medpar[medpar$provnum %in% provider_count[provider_count$Count>=requiredcases,]$Provider,]
+
+# Number of patients by provider in purged data set ...
+provider_count_trunc=as.data.frame(table(medpar_trunc$provnum))
+colnames(provider_count_trunc) = c('Provider', 'Count')
+provider_count_trunc
+
+# Use '14' as the target length of stay ...
+target_los=14
+medpar_trunc_gt_target_los <- medpar_trunc[medpar_trunc$los>target_los,]
+
+medpar_trunc$gt_target_los=0
+medpar_trunc[medpar_trunc$los>target_los,]$gt_target_los <- 1
+prov_vs_missrate_table=table( medpar_trunc$provnum, medpar_trunc$gt_target_los)
+num_prov=dim(prov_vs_missrate_table)[1]
+
+
+prov_matrix = matrix(NA, num_prov, 3)
+prov_matrix[,1]=prov_vs_missrate_table[,2]
+prov_matrix[,2]=prov_vs_missrate_table[,1]+prov_vs_missrate_table[,2]
+prov_matrix[,3]=prov_matrix[,1]/prov_matrix[,2]
+colnames(prov_matrix) = c('Exceed LOS target', 'Patient count', 'Miss rate')
+prov_matrix
+
+x_var=prov_matrix[,2]
+y_var=prov_matrix[,3]
+
+provider_labels = provider_count_trunc[,1]
+
+# Creating funnel plot ...
+fp=funnel2cmpproviders(x_var, y_var, limits=c(95,99.9,99.9999,99.9999999), labels=provider_labels, addlabels = 1, x_label = "Number of Patients for Each Provider", y_label = "Number of Patients Exceeding Target LOS/Number of Patients", plot_title = "Length of Stay (LOS) Target Miss Rate by Provider and Volume", y_percent=FALSE)
+
+
+```
+
+### Example 2 (Death Rate)
+```{r, warning=FALSE, error=FALSE, message=FALSE, fig.height= 7, fig.width=7}
+library(cmpproviders)
+library(COUNT)
+library(dplyr)
+data(medpar)
+
+# Number of patients by provider ...
+provider_count=as.data.frame(table(medpar$provnum))
+colnames(provider_count) = c('Provider', 'Count')
+provider_count
+
+# Purging providers with less than 20 patients ...
+requiredcases=20
+medpar_trunc <- medpar[medpar$provnum %in% provider_count[provider_count$Count>=requiredcases,]$Provider,]
+
+# Number of patients by provider in purged data set ...
+provider_count_trunc=as.data.frame(table(medpar_trunc$provnum))
+colnames(provider_count_trunc) = c('Provider', 'Count')
+provider_count_trunc
+
+medpar_trunc_died <- medpar_trunc[medpar_trunc$died==1,]
+
+# Number of died by provider in purged data set ...
+provider_count_trunc_died=as.data.frame(table(medpar_trunc_died$provnum))
+colnames(provider_count_trunc_died) = c('Provider', 'Count')
+provider_count_trunc_died
+
+# Death rate by provider ...
+y_var = provider_count_trunc_died[,2]/ provider_count_trunc[,2]
+y_var
+
+x_var = provider_count_trunc[,2]
+provider_labels = provider_count_trunc[,1]
+
+# Creating funnel plots ...
+
+fp=funnel2cmpproviders(x_var, y_var, limits=c(95,99.9), labels=provider_labels, addlabels = 1, x_label = "Provider Volume (Patients Cared for by Provider)", y_label = "Death Rate (Deaths by Provider/Patients Cared for by Provider)", plot_title = "Death Rate by Provider and Volume") 
+
+# Labelling one provider (030006) ...
+fp=funnel2cmpproviders(x_var, y_var, limits=c(95,99.9), labels=provider_labels, addlabels = 'LIST', labels_to_display = c("030006"), x_label = "Provider Volume (Patients Cared for by Provider)", y_label = "Death Rate (Deaths by Provider/Patients Cared for by Provider)", plot_title = "Death Rate by Provider and Volume") 
+
+# Labels only the outliers ...
+fp=funnel2cmpproviders(x_var, y_var, limits=c(95,99.9,99.9999), labels=provider_labels, addlabels = "OUTLIERS", x_label = "Provider Volume (Patients Cared for by Provider)", y_label = "Provider Death Rate (Deaths by Provider/Patients Cared for by Provider)", plot_title = "Death Rate by Provider and Volume with Outliers Labelled") 
+
+```
