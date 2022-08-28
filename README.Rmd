@@ -14,17 +14,17 @@ knitr::opts_chunk$set(
 )
 ```
 
-### Installation
+## Installation
 
-This is code that is in development. It can be installed in R from GitHub using the `remotes` (or `devtools`) package.  Please be aware that as development code it may be broken at times. 
+The code can be installed in R from GitHub using the `remotes` (or `devtools`) package.  Please be aware that as development code, it may be broken at times. 
 ```{r remotes, eval=FALSE}
 remotes::install_github("https://github.com/mbonert/cmpproviders")
 ```
 
-### The provider factor
+## The provider factor
 The provider is a known predictor of outcome in healthcare. In the quality improvement context: it is useful to understand the magnitude of differences and, more generally, the variability. 
 
-### Funnel plots
+## Funnel plots
 Funnel plots are useful to understand variability and the magnitude of differences.  Properly constructed, they can be understood by most practicing physicians/surgeons with modest effort. 
 
 This code borrows some ideas from the package "FunnelPlotR". The main differences to that package are: (1) this code uses the raw rate data (instead of the standardized ratio), (2) the confidence intervals the funnels represent can be adjusted, and (3) an arbitrary number of funnels can be plotted in the same figure.
@@ -36,21 +36,21 @@ library(COUNT)
 library(dplyr)
 data(medpar)
 
-# Get number of patients by provider ...
+print("Get number of patients by provider ...")
 provider_count=as.data.frame(table(medpar$provnum))
 colnames(provider_count) = c('Provider', 'Count')
 provider_count
 
-# Purging providers with less than 25 patients ...
+print("Purging providers with less than 25 patients ...")
 requiredcases=25
 medpar_trunc <- medpar[medpar$provnum %in% provider_count[provider_count$Count>=requiredcases,]$Provider,]
 
-# Number of patients by provider in purged data set ...
+print("Number of patients by provider in purged data set ...")
 provider_count_trunc=as.data.frame(table(medpar_trunc$provnum))
 colnames(provider_count_trunc) = c('Provider', 'Count')
 provider_count_trunc
 
-# Use '14' as the target length of stay ...
+print("Use '14' as the target length of stay ...")
 target_los=14
 medpar_trunc_gt_target_los <- medpar_trunc[medpar_trunc$los>target_los,]
 
@@ -72,7 +72,7 @@ y_var=prov_matrix[,3]
 
 provider_labels = provider_count_trunc[,1]
 
-# Creating funnel plot ...
+print("Creating funnel plot ...")
 fp=funnel2cmpproviders(x_var, y_var, limits=c(95,99.9,99.9999,99.9999999), labels=provider_labels, addlabels = 1, x_label = "Number of Patients for Each Provider", y_label = "Number of Patients Exceeding Target LOS/Number of Patients", plot_title = "Length of Stay (LOS) Target Miss Rate by Provider and Volume", y_percent=FALSE)
 ```
 
@@ -83,42 +83,42 @@ library(COUNT)
 library(dplyr)
 data(medpar)
 
-# Number of patients by provider ...
+print("Number of patients by provider ...")
 provider_count=as.data.frame(table(medpar$provnum))
 colnames(provider_count) = c('Provider', 'Count')
 provider_count
 
-# Purging providers with less than 20 patients ...
+print("Purging providers with less than 20 patients ...")
 requiredcases=20
 medpar_trunc <- medpar[medpar$provnum %in% provider_count[provider_count$Count>=requiredcases,]$Provider,]
 
-# Number of patients by provider in purged data set ...
+print("Number of patients by provider in purged data set ...")
 provider_count_trunc=as.data.frame(table(medpar_trunc$provnum))
 colnames(provider_count_trunc) = c('Provider', 'Count')
 provider_count_trunc
 
 medpar_trunc_died <- medpar_trunc[medpar_trunc$died==1,]
 
-# Number of died by provider in purged data set ...
+print("Number of died by provider in purged data set ...")
 provider_count_trunc_died=as.data.frame(table(medpar_trunc_died$provnum))
 colnames(provider_count_trunc_died) = c('Provider', 'Count')
 provider_count_trunc_died
 
-# Death rate by provider ...
+print("Death rate by provider ...")
 y_var = provider_count_trunc_died[,2]/ provider_count_trunc[,2]
 y_var
 
 x_var = provider_count_trunc[,2]
 provider_labels = provider_count_trunc[,1]
 
-# Creating funnel plots ...
+print("Creating funnel plots ...")
 
 fp=funnel2cmpproviders(x_var, y_var, limits=c(95,99.9), labels=provider_labels, addlabels = 1, x_label = "Provider Volume (Patients Cared for by Provider)", y_label = "Death Rate (Deaths by Provider/Patients Cared for by Provider)", plot_title = "Death Rate by Provider and Volume") 
 
-# Labelling one provider (030006) ...
+print("Labelling one provider (030006) ...")
 fp=funnel2cmpproviders(x_var, y_var, limits=c(95,99.9), labels=provider_labels, addlabels = 'LIST', labels_to_display = c("030006"), x_label = "Provider Volume (Patients Cared for by Provider)", y_label = "Death Rate (Deaths by Provider/Patients Cared for by Provider)", plot_title = "Death Rate by Provider and Volume") 
 
-# Labels only the outliers ...
+print("Labels only the outliers ...")
 fp=funnel2cmpproviders(x_var, y_var, limits=c(95,99.9,99.9999), labels=provider_labels, addlabels = "OUTLIERS", x_label = "Provider Volume (Patients Cared for by Provider)", y_label = "Provider Death Rate (Deaths by Provider/Patients Cared for by Provider)", plot_title = "Death Rate by Provider and Volume with Outliers Labelled") 
 
 ```
