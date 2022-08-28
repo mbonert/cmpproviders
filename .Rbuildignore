@@ -1,4 +1,7 @@
 Makefile
+README.Rmd
+README.md
 
 ^doc$
 ^Meta$
+^README_files$
