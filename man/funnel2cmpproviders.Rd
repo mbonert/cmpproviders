@@ -24,7 +24,7 @@ funnel2cmpproviders(
   y_fsd = 0.5,
   funnel_curve_calculation_parameter = 3,
   fc_min_dx = 0.5,
-  fc_max_y_err = 0.003,
+  fc_max_y_err = 0.001,
   x2plot = NULL,
   show_legend = TRUE,
   y_percent = FALSE,

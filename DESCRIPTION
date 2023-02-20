@@ -1,6 +1,6 @@
 Package: cmpproviders
-Version: 0.30
-Date: 2023-02-19
+Version: 0.31
+Date: 2023-02-20
 Title: Compare Providers
 Authors@R: c(person("Michael Bonert", "Developer", role = c("aut", "cre"),
                      email = "michael@librepathology.org"))
