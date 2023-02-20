@@ -1,6 +1,6 @@
 Package: cmpproviders
-Version: 0.21
-Date: 2022-08-25
+Version: 0.30
+Date: 2023-02-19
 Title: Compare Providers
 Authors@R: c(person("Michael Bonert", "Developer", role = c("aut", "cre"),
                      email = "michael@librepathology.org"))
@@ -13,7 +13,7 @@ Suggests:
     dplyr,
     knitr,
     rmarkdown
-Description: A program that compares provider rate data using funnel plots. The implementation is based on Bonert et al. (2017) <https://doi.org/10.4103/jpi.jpi_50_17>
+Description: A program that compares provider rate data using funnel plots or control charts. The implementations are based on Bonert et al. (2017) <https://doi.org/10.4103/jpi.jpi_50_17> and on Bonert et al. (2023) <https://doi.org/10.1038/s41598-022-26962-w>
 License: GPL (>= 3)
 URL: https://github.com/mbonert/cmpproviders
 BugReports: michael@librepathology.org

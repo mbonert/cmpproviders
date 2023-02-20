@@ -56,6 +56,7 @@
 #' @param x2plot                vector defines extra x values used to calculate the funnel curves
 #' @param show_legend           TRUE shows legend at bottom of plot
 #' @param y_percent             y axis in percent (multiplies y_var by 100)
+#' @param showoutlier_arr       show the outlier array
 #'
 #' @returns funnel plot object
 #'
@@ -107,10 +108,9 @@
 #'
 #' @export funnel2cmpproviders
 
-funnel2cmpproviders <- function(x_var, y_var, labels = NULL, limits = c(95,99.9), funnel_centre_line = NULL, addlabels = 'NONE', labels_to_display = NULL, x_label = NULL, y_label = NULL, plot_title = NULL, x_lower_limit = NULL, x_upper_limit = NULL, y_lower_limit = NULL,  y_upper_limit = NULL, x_fpad_upper = 0.1, x_fpad_lower = 0.03, y_fsd = 0.5, funnel_curve_calculation_parameter = 3, fc_min_dx = 0.5, fc_max_y_err = 0.003, x2plot = NULL, show_legend=TRUE, y_percent = FALSE ) {
+funnel2cmpproviders <- function(x_var, y_var, labels = NULL, limits = c(95,99.9), funnel_centre_line = NULL, addlabels = 'NONE', labels_to_display = NULL, x_label = NULL, y_label = NULL, plot_title = NULL, x_lower_limit = NULL, x_upper_limit = NULL, y_lower_limit = NULL,  y_upper_limit = NULL, x_fpad_upper = 0.1, x_fpad_lower = 0.03, y_fsd = 0.5, funnel_curve_calculation_parameter = 3, fc_min_dx = 0.5, fc_max_y_err = 0.003, x2plot = NULL, show_legend=TRUE, y_percent = FALSE, showoutlier_arr=FALSE ) {
   # Control
   debug=0
-  showoutlier_arr=0 # output the outliers to screen
   
   # Check input data   
   xlen=length(x_var)
@@ -175,7 +175,7 @@ funnel2cmpproviders <- function(x_var, y_var, labels = NULL, limits = c(95,99.9)
   }
   len_outlierarr=ylen
   
-  if (debug==1 || showoutlier_arr==1) {
+  if (debug==1 || showoutlier_arr==TRUE) {
     print("outliers_arr:")
     print(outliers_arr) # testing
   }    
