@@ -198,12 +198,19 @@ summary {
 </div>
 <div id="the-provider-factor" class="section level2">
 <h2>The provider factor</h2>
-<p>The provider is a known predictor of outcome in healthcare. In the quality improvement context: it is useful to understand the magnitude of differences and, more generally, the variability.</p>
+<p>The provider is a known predictor of outcome in healthcare ( <a href="https://www.doi.org/10.1056/NEJM198903163201106" class="uri">https://www.doi.org/10.1056/NEJM198903163201106</a> <a href="https://www.doi.org/10.1038/s41598-022-26962-w" class="uri">https://www.doi.org/10.1038/s41598-022-26962-w</a> ). In the quality improvement context: it is useful to understand the magnitude of differences and, more generally, the variability.</p>
 </div>
 <div id="funnel-plots" class="section level2">
 <h2>Funnel plots</h2>
 <p>Funnel plots are useful to understand variability and the magnitude of differences. Properly constructed, they can be understood by most practicing physicians/surgeons with modest effort.</p>
-<p>This code borrows some ideas from the package “FunnelPlotR”. The main differences to that package are: (1) this code uses the raw rate data (instead of the standardized ratio), (2) the confidence intervals the funnels represent can be adjusted, and (3) an arbitrary number of funnels can be plotted in the same figure.</p>
+<p>This code borrows ideas from the package “FunnelPlotR” ( <a href="https://github.com/cran/FunnelPlotR" class="uri">https://github.com/cran/FunnelPlotR</a> ). The main differences to that package are: (1) this code uses the raw rate data (instead of the standardized ratio), (2) the confidence intervals the funnels represent can be adjusted, and (3) an arbitrary number of funnels can be plotted in the same figure.</p>
+<p>In the quality of care context, funnel plots were described by Spiegelhalter in 2005 ( <a href="https://www.doi.org/10.1002/sim.1970" class="uri">https://www.doi.org/10.1002/sim.1970</a> ). They have been applied in surgery ( <a href="https://www.doi.org/10.1097/SLA.0b013e31819a47b1" class="uri">https://www.doi.org/10.1097/SLA.0b013e31819a47b1</a> ), obstetrics ( <a href="https://www.doi.org/10.1136/bmj.c5065" class="uri">https://www.doi.org/10.1136/bmj.c5065</a> ) and pathology ( <a href="https://www.doi.org/10.4103/jpi.jpi_50_17" class="uri">https://www.doi.org/10.4103/jpi.jpi_50_17</a> ) .</p>
+</div>
+<div id="control-charts" class="section level2">
+<h2>Control charts</h2>
+<p>Control charts (also known as Shewhart charts, after Walter A. Shewhart) are analogous to funnel plots; they show a variable in relation to expected variation. They are also tool of statistical process control/Next Generation Quality.</p>
+<p>The control chart, as used here, can be thought of a normalized form of the funnel plot, that allows comparisons to a specified rate ( <a href="https://www.doi.org/10.1371/journal.pone.0242656" class="uri">https://www.doi.org/10.1371/journal.pone.0242656</a> <a href="https://www.doi.org/10.1038/s41598-021-95862-2" class="uri">https://www.doi.org/10.1038/s41598-021-95862-2</a> ).</p>
+<p>Sorted control charts are easier to read and obscure the volume, something that may be useful to maintain a level of anonymity ( <a href="https://www.doi.org/10.1371/journal.pone.0242656" class="uri">https://www.doi.org/10.1371/journal.pone.0242656</a> ).</p>
 <div id="example-1-length-of-stay" class="section level3">
 <h3>Example 1 (Length of Stay)</h3>
 <pre class="r"><code>library(cmpproviders)
@@ -366,6 +373,11 @@ print(&quot;Creating funnel plot ...&quot;)
 #&gt; [1] &quot;Creating funnel plot ...&quot;
 fp=funnel2cmpproviders(x_var, y_var, limits=c(95,99.9,99.9999,99.9999999), labels=provider_labels, addlabels = 1, x_label = &quot;Number of Patients for Each Provider&quot;, y_label = &quot;Number of Patients Exceeding Target LOS/Number of Patients&quot;, plot_title = &quot;Length of Stay (LOS) Target Miss Rate by Provider and Volume&quot;, y_percent=FALSE)</code></pre>
 <p><img src="README_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r"><code>
+print(&quot;Creating control chart ...&quot;)
+#&gt; [1] &quot;Creating control chart ...&quot;
+cc=controlchart2cmpproviders(x_var, y_var, limits=c(95,99.9,99.9999,99.9999999), labels=provider_labels, addlabels = 1, x_label = &quot;Provider (Sorted by Normed Rate)&quot;, y_label = &quot;Normed Length of Stay Target Miss Rate&quot;, plot_title = &quot;Normed Length of Stay (LOS) Target Miss Rate by Provider&quot;, y_percent=FALSE)</code></pre>
+<p><img src="README_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
 </div>
 <div id="example-2-death-rate" class="section level3">
 <h3>Example 2 (Death Rate)</h3>
@@ -544,6 +556,13 @@ print(&quot;Labels only the outliers ...&quot;)
 #&gt; [1] &quot;Labels only the outliers ...&quot;
 fp=funnel2cmpproviders(x_var, y_var, limits=c(95,99.9,99.9999), labels=provider_labels, addlabels = &quot;OUTLIERS&quot;, x_label = &quot;Provider Volume (Patients Cared for by Provider)&quot;, y_label = &quot;Provider Death Rate (Deaths by Provider/Patients Cared for by Provider)&quot;, plot_title = &quot;Death Rate by Provider and Volume with Outliers Labelled&quot;) </code></pre>
 <p><img src="README_files/figure-html/unnamed-chunk-3-3.png" width="672" /></p>
+<pre class="r"><code>
+
+print(&quot;Creating control chart ...&quot;)
+#&gt; [1] &quot;Creating control chart ...&quot;
+
+cc=controlchart2cmpproviders(x_var, y_var, limits=c(95,99.9,99.9999), labels=provider_labels, addlabels = &quot;OUTLIERS&quot;, x_label = &quot;Provider (Sorted by Normed Rate)&quot;, y_label = &quot;Normed Provider Death Rate&quot;, plot_title = &quot;Normed Death Rate by Provider with Outliers Labelled&quot;)</code></pre>
+<p><img src="README_files/figure-html/unnamed-chunk-3-4.png" width="672" /></p>
 </div>
 </div>
 

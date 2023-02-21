@@ -1,5 +1,5 @@
 Package: cmpproviders
-Version: 0.31
+Version: 0.32
 Date: 2023-02-20
 Title: Compare Providers
 Authors@R: c(person("Michael Bonert", "Developer", role = c("aut", "cre"),
