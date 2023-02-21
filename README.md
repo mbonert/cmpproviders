@@ -208,9 +208,9 @@ summary {
 </div>
 <div id="control-charts" class="section level2">
 <h2>Control charts</h2>
-<p>Control charts (also known as Shewhart charts, after Walter A. Shewhart) are analogous to funnel plots; they show a variable in relation to expected variation. They are also tool of statistical process control/Next Generation Quality.</p>
+<p>Control charts (also known as Shewhart charts, after Walter A. Shewhart) are analogous to funnel plots; they show a variable in relation to its expected variation. They are also a tool of statistical process control/Next Generation Quality.</p>
 <p>The control chart, as used here, can be thought of a normalized form of the funnel plot, that allows comparisons to a specified rate ( <a href="https://www.doi.org/10.1371/journal.pone.0242656" class="uri">https://www.doi.org/10.1371/journal.pone.0242656</a> <a href="https://www.doi.org/10.1038/s41598-021-95862-2" class="uri">https://www.doi.org/10.1038/s41598-021-95862-2</a> ).</p>
-<p>Sorted control charts are easier to read and obscure the volume, something that may be useful to maintain a level of anonymity ( <a href="https://www.doi.org/10.1371/journal.pone.0242656" class="uri">https://www.doi.org/10.1371/journal.pone.0242656</a> ).</p>
+<p>Sorted control charts are easier to read and obscure the (provider) volume, something that may be useful to maintain a level of anonymity ( <a href="https://www.doi.org/10.1371/journal.pone.0242656" class="uri">https://www.doi.org/10.1371/journal.pone.0242656</a> ).</p>
 <div id="example-1-length-of-stay" class="section level3">
 <h3>Example 1 (Length of Stay)</h3>
 <pre class="r"><code>library(cmpproviders)
