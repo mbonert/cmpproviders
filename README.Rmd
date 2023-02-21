@@ -25,18 +25,18 @@ remotes::install_github("https://github.com/mbonert/cmpproviders")
 The provider is a known predictor of outcome in healthcare ( https://www.doi.org/10.1056/NEJM198903163201106 https://www.doi.org/10.1038/s41598-022-26962-w ). In the quality improvement context: it is useful to understand the magnitude of differences and, more generally, the variability. 
 
 ## Funnel plots
-Funnel plots are useful to understand variability and the magnitude of differences.  Properly constructed, they can be understood by most practicing physicians/surgeons with modest effort. 
+Funnel plots are useful to understand variability and the magnitude of differences. Properly constructed, they can be understood by most practicing physicians/surgeons with modest effort. 
 
 This code borrows ideas from the package "FunnelPlotR" ( https://github.com/cran/FunnelPlotR ). The main differences to that package are: (1) this code uses the raw rate data (instead of the standardized ratio), (2) the confidence intervals the funnels represent can be adjusted, and (3) an arbitrary number of funnels can be plotted in the same figure.
 
 In the quality of care context, funnel plots were described by Spiegelhalter in 2005 ( https://www.doi.org/10.1002/sim.1970 ). They have been applied in surgery ( https://www.doi.org/10.1097/SLA.0b013e31819a47b1 ), obstetrics ( https://www.doi.org/10.1136/bmj.c5065 ) and pathology ( https://www.doi.org/10.4103/jpi.jpi_50_17 ) .
 
 ## Control charts
-Control charts (also known as Shewhart charts, after Walter A. Shewhart) are analogous to funnel plots; they show a variable in relation to expected variation. They are also tool of statistical process control/Next Generation Quality. 
+Control charts (also known as Shewhart charts, after Walter A. Shewhart) are analogous to funnel plots; they show a variable in relation to its expected variation. They are also a tool of statistical process control/Next Generation Quality. 
 
 The control chart, as used here, can be thought of a normalized form of the funnel plot, that allows comparisons to a specified rate ( https://www.doi.org/10.1371/journal.pone.0242656 https://www.doi.org/10.1038/s41598-021-95862-2 ). 
 
-Sorted control charts are easier to read and obscure the volume, something that may be useful to maintain a level of anonymity ( https://www.doi.org/10.1371/journal.pone.0242656 ).
+Sorted control charts are easier to read and obscure the (provider) volume, something that may be useful to maintain a level of anonymity ( https://www.doi.org/10.1371/journal.pone.0242656 ).
 
 
 ### Example 1 (Length of Stay)
